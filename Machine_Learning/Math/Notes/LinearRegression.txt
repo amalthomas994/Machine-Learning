@@ -1,0 +1,5 @@
+Linear Regression Function:
+    y = mx + b
+
+Slope (m):
+    
