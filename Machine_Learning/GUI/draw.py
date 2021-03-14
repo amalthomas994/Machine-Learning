@@ -84,15 +84,7 @@ class Plotter():
 
         widget = Widget()
         verticalBox = QtWidgets.QVBoxLayout()
-        exitButton = QtWidgets.QPushButton('Exit')
-        exitButton.setToolTip('Exit the Application')
-        exitButton.clicked.connect(self.exitAction)
-        regression_equation = QtWidgets.QLabel(f'Regression Line Equation: {regression_line}')
-        regression_equation.setAlignment(QtCore.Qt.AlignCenter)
-        # verticalBox.addWidget(canvas)
-        verticalBox.addWidget(regression_equation)
-        verticalBox.addWidget(exitButton)
-
+        widget.setLayout(verticalBox)
         fig = plt.figure()
         plt.rcParams.update({
         "axes.facecolor": "white",
@@ -103,8 +95,21 @@ class Plotter():
         figs = fig.add_subplot(111)
         
         figs.plot(line_data['x'], line_data['y'])
+        figs.scatter(scatter_data['x'], scatter_data['y'], marker='o')
+        figs.title('Hi')
         verticalBox.addWidget(newCan) 
-        widget.setLayout(verticalBox)
+        
+
+        exitButton = QtWidgets.QPushButton('Exit')
+        exitButton.setToolTip('Exit the Application')
+        exitButton.clicked.connect(self.exitAction)
+        regression_equation = QtWidgets.QLabel(f'Regression Line Equation: {regression_line}')
+        regression_equation.setAlignment(QtCore.Qt.AlignCenter)
+        # verticalBox.addWidget(canvas)
+        verticalBox.addWidget(regression_equation)
+        verticalBox.addWidget(exitButton)
+
+        
         
 
     
