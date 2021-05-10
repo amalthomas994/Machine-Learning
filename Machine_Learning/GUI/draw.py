@@ -6,9 +6,9 @@ from matplotlib.figure import Figure
 import numpy
 import json
 import traceback
-import logging
+import logging as log
 import qdarkstyle
-logging.basicConfig(level=logging.INFO)
+log.basicConfig(level=log.INFO)
 
 class Widget(QtWidgets.QWidget):
     def __init__(self, parent=None):
@@ -26,7 +26,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, widget):
         super().__init__()
         
-        logging.info('Creating Main Window')
+        log.info('Creating Main Window')
         # self.resize(1000, 1000)
         self.setWindowIcon(QtGui.QIcon('favicon.png'))
         self.setWindowTitle('Linear Regression')
@@ -65,19 +65,21 @@ class Plotter():
     def run(self):
         application = QtWidgets.QApplication(sys.argv)
         application.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
-        canvas = plotCanvas(self.width, self.height, self.dpi)
-        canvas.fig.set_title('Linear Regression')
-        canvas.fig.set_xlabel('x')
-        canvas.fig.set_ylabel('y')
-        # canvas.fig.set_facecolor("grey")
-        # canvas.fig.set_edgecolor("red")
+        # canvas = plotCanvas(self.width, self.height, self.dpi)
+        # canvas.fig.set_title('Linear Regression')
+        # canvas.fig.set_xlabel('x')
+        # canvas.fig.set_ylabel('y')
+        # # canvas.fig.set_facecolor("grey")
+        # # canvas.fig.set_edgecolor("red")
         
-        if self.data['Scatter']:
-            scatter_data = self.data['Scatter']
-            canvas.fig.scatter(scatter_data['x'], scatter_data['y'], marker='o')
-        if self.data['Line']:
-            line_data = self.data['Line']
-            canvas.fig.plot(line_data['x'], line_data['y'])
+        # if self.data['Scatter']:
+        #     scatter_data = self.data['Scatter']
+        #     for item in scatter_data:
+        #         canvas.fig.scatter(item['x'], item['y'], marker='o')
+        # if self.data['Line']:
+        #     line_data = self.data['Line']
+        #     for item in line_data:
+        #         canvas.fig.plot(item['x'], item['y'])
         if self.data['Regression Line']:
             regression_line = self.data['Regression Line']
         
@@ -93,10 +95,17 @@ class Plotter():
         })
         newCan = FigureCanvasQTAgg(fig)
         figs = fig.add_subplot(111)
-        
-        figs.plot(line_data['x'], line_data['y'])
-        figs.scatter(scatter_data['x'], scatter_data['y'], marker='o')
-        figs.title('Hi')
+        if self.data['Scatter']:
+            scatter_data = self.data['Scatter']
+            for item in scatter_data:
+                figs.scatter(item['x'], item['y'], marker='o')
+        if self.data['Line']:
+            line_data = self.data['Line']
+            for item in line_data:
+                figs.plot(item['x'], item['y'])
+        # figs.plot(line_data['x'], line_data['y'])
+        # figs.scatter(scatter_data['x'], scatter_data['y'], marker='o')
+        # figs.title('Hi')
         verticalBox.addWidget(newCan) 
         
 
