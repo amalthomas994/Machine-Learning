@@ -2,7 +2,7 @@
 
 An attempt to create a custom Machine Learning API in Python
 
-*Note this is a work in progress*
+*Note: This is a work in progress*
 
 ---
 
